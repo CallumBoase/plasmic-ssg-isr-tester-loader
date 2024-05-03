@@ -5,20 +5,15 @@ export const renderMarkdownMeta: CodeComponentMeta<RenderMarkdownProps> = {
   name: "RenderMarkdown",
   importPath: "./index",
   props: {
-    content: {
+    markdownText: {
       type: "string",
-      defaultValue: `
-        # Hello this is a heading
-
-        This is a paragraph
-
-        * Bullet list item 1
-        * Bullet list item 2
-      `,
+      description: 'Markdown content to render. Note: it is also OK to pass URI encoded markdown content here if needed.',
+      defaultValue: '# Hello, this is a H1!'
     },
-    isEncoded: {
+    dangerouslyRenderHtmlTags: {
       type: "boolean",
-      defaultValue: false,
+      description: 'Whether to (DANGEROUSLY) render HTML tags in the markdown content. If true, HTML tags will be rendered as HTML elements. Only use if you are sanitizing input before render, or you completely trust the source of the markdown. Can be used to for XSS attacks and other terrible things.',
+      defaultValue: false
     },
     className: {
       type: "class",
