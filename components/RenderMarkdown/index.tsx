@@ -9,23 +9,23 @@ import rehypeSlug from "rehype-slug";
 export type RenderMarkdownProps = {
   markdownText: string;
   dangerouslyRenderHtmlTags?: boolean;
-  autogenTableOfContents?: boolean;
+  autoGenerateTableOfContents?: boolean;
   className?: string;
 };
 
 export function RenderMarkdown({
   markdownText,
   dangerouslyRenderHtmlTags = false,
-  autogenTableOfContents = false,
+  autoGenerateTableOfContents = false,
   className = "",
 }: RenderMarkdownProps) {
   const finalMarkdown = decodeURIComponent(markdownText);
 
   // Create remark and rehype plugins array conditionally
-  const remarkPlugins = autogenTableOfContents ? [remarkGfm, remarkToc] : [remarkGfm];
+  const remarkPlugins = autoGenerateTableOfContents ? [remarkGfm, remarkToc] : [remarkGfm];
   const rehypePlugins = [
     rehypeHighlight,
-    ...(autogenTableOfContents ? [rehypeSlug] : []),
+    ...(autoGenerateTableOfContents ? [rehypeSlug] : []),
     ...(dangerouslyRenderHtmlTags ? [rehypeRaw] : [])
   ];
 
