@@ -7,12 +7,17 @@ export const renderMarkdownMeta: CodeComponentMeta<RenderMarkdownProps> = {
   props: {
     markdownText: {
       type: "string",
-      description: 'Markdown content to render. Note: it is also OK to pass URI encoded markdown content here if needed.',
+      description: 'Markdown content to render. Note: it is also OK to pass URI encoded markdown content here if needed. Uses https://www.npmjs.com/package/react-markdown and https://www.npmjs.com/package/remark-gfm',
       defaultValue: '# Hello, this is a H1!'
+    },
+    autogenTableOfContents: {
+      type: "boolean",
+      description: 'Whether to automatically generate a table of contents (TOC) from the markdown content. If true, headings will become anchor links, and a table of contents will be generated underneath heading 1 that is exactly the word "Contents". Uses https://github.com/remarkjs/remark-toc and https://github.com/rehypejs/rehype-slug.',
+      defaultValue: true
     },
     dangerouslyRenderHtmlTags: {
       type: "boolean",
-      description: 'Whether to (DANGEROUSLY) render HTML tags in the markdown content. If true, HTML tags will be rendered as HTML elements. Only use if you are sanitizing input before render, or you completely trust the source of the markdown. Can be used to for XSS attacks and other terrible things.',
+      description: 'Whether to (DANGEROUSLY) render HTML tags in the markdown content. If true, HTML tags will be rendered as HTML elements. Only use if you are sanitizing input before render, or you completely trust the source of the markdown. Can be used to for XSS attacks and other terrible things. Uses https://www.npmjs.com/package/rehype-raw',
       defaultValue: false
     },
     className: {

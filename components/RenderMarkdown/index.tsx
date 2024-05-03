@@ -9,38 +9,35 @@ import rehypeSlug from "rehype-slug";
 export type RenderMarkdownProps = {
   markdownText: string;
   dangerouslyRenderHtmlTags?: boolean;
+  autogenTableOfContents?: boolean;
   className?: string;
 };
 
 export function RenderMarkdown({
   markdownText,
-  dangerouslyRenderHtmlTags,
-  className,
+  dangerouslyRenderHtmlTags = false,
+  autogenTableOfContents = false,
+  className = "",
 }: RenderMarkdownProps) {
-  //The component can accept URI encoded content
-  //We decode it here
-  //It doesn't matter if the content is not encoded, the decoding won't affect it
   const finalMarkdown = decodeURIComponent(markdownText);
 
-  if (dangerouslyRenderHtmlTags === true) {
-    return (
-      <Markdown
-        className={`markdown-render ${className}`}
-        remarkPlugins={[remarkGfm, remarkToc]}
-        rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeSlug]}
-      >
-        {finalMarkdown}
-      </Markdown>
-    );
-  } else {
-    return (
-      <Markdown
-        className={`markdown-render ${className}`}
-        remarkPlugins={[remarkGfm, remarkToc]}
-        rehypePlugins={[rehypeHighlight, rehypeSlug]}
-      >
-        {finalMarkdown}
-      </Markdown>
-    );
-  }
+  // Create remark and rehype plugins array conditionally
+  const remarkPlugins = autogenTableOfContents ? [remarkGfm, remarkToc] : [remarkGfm];
+  const rehypePlugins = [
+    rehypeHighlight,
+    ...(autogenTableOfContents ? [rehypeSlug] : []),
+    ...(dangerouslyRenderHtmlTags ? [rehypeRaw] : [])
+  ];
+
+  return (
+    <Markdown
+      className={`markdown-render ${className}`}
+      remarkPlugins={remarkPlugins}
+      rehypePlugins={rehypePlugins}
+    >
+      {finalMarkdown}
+    </Markdown>
+  );
 }
+
+
