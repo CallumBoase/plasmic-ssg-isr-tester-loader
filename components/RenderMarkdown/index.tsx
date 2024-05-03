@@ -10,6 +10,7 @@ export type RenderMarkdownProps = {
   markdownText: string;
   dangerouslyRenderHtmlTags?: boolean;
   autoGenerateTableOfContents?: boolean;
+  inputTextIsEncoded?: boolean;
   className?: string;
 };
 
@@ -17,9 +18,15 @@ export function RenderMarkdown({
   markdownText,
   dangerouslyRenderHtmlTags = false,
   autoGenerateTableOfContents = false,
+  inputTextIsEncoded = false,
   className = "",
 }: RenderMarkdownProps) {
-  const finalMarkdown = decodeURIComponent(markdownText);
+
+  let finalMarkdown = markdownText;
+  
+  if (inputTextIsEncoded) {
+    finalMarkdown = decodeURIComponent(markdownText);
+  }
 
   // Create remark and rehype plugins array conditionally
   const remarkPlugins = autoGenerateTableOfContents ? [remarkGfm, remarkToc] : [remarkGfm];

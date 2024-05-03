@@ -12,12 +12,17 @@ export const renderMarkdownMeta: CodeComponentMeta<RenderMarkdownProps> = {
     },
     autoGenerateTableOfContents: {
       type: "boolean",
-      description: 'Whether to automatically generate a table of contents (TOC) from the markdown content. If true, headings will become anchor links, and a table of contents will be generated underneath heading 1 that is exactly the word "Contents". Uses https://github.com/remarkjs/remark-toc and https://github.com/rehypejs/rehype-slug.',
+      description: 'Whether to automatically generate a table of contents (TOC) from the markdown content. If true, headings will become anchor links, and a table of contents will be generated underneath heading 2 that contains exactly the word "Contents". Uses https://github.com/remarkjs/remark-toc and https://github.com/rehypejs/rehype-slug.',
       defaultValue: true
     },
     dangerouslyRenderHtmlTags: {
       type: "boolean",
       description: 'Whether to (DANGEROUSLY) render HTML tags in the markdown content. If true, HTML tags will be rendered as HTML elements. Only use if you are sanitizing input before render, or you completely trust the source of the markdown. Can be used to for XSS attacks and other terrible things. Uses https://www.npmjs.com/package/rehype-raw',
+      defaultValue: false
+    },
+    inputTextIsEncoded: {
+      type: "boolean",
+      description: 'Whether the markdownText prop is URI encoded. If true, the markdownText prop will be decoded before rendering. If false, the markdownText prop will be rendered as is.',
       defaultValue: false
     },
     className: {
