@@ -15,26 +15,16 @@ interface Text extends Node {
 
 export function rehypeAddCopyButton() {
   return (tree: Node) => {
-    visit(tree, { tagName: 'code' }, (node: Node, index: number, parent: Node | Element) => {
-      if (isElement(parent) && typeof index === 'number') {
-        const codeElement: Element = {
-          type: 'element',
-          tagName: 'div',
-          properties: { className: ['code-container'] },
-          children: [node]
-        };
-
+    visit(tree, { tagName: 'pre' }, (node: Element) => {
+      if (isElement(node)) {
         const buttonElement: Element = {
           type: 'element',
           tagName: 'button',
-          properties: {
-            className: ['copy-button']
-          },
-          children: [{ type: 'text', value: 'Copy' } as Text]
+          properties: { className: ['copy-code-btn'] },
+          children: [{ type: 'text', value: 'Copy code' } as Text]
         };
 
-        parent.children.splice(index, 1, codeElement);
-        codeElement.children.push(buttonElement);
+        node.children.unshift(buttonElement); // Inserts the button at the beginning of the <pre> container
       }
     });
   };

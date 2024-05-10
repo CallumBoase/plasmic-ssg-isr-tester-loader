@@ -13,6 +13,7 @@
   background-color: white;
   padding: 30px;
   color: #333;
+  box-sizing: border-box;
 
   /* Would normally be body > but instead we use & (the parent selector) */
   & > *:first-child {

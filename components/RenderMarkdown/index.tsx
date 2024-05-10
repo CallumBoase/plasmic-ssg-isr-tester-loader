@@ -42,10 +42,12 @@ export function RenderMarkdown({
 
   //Make the "copy code" buttons work
   useEffect(() => {
-    // Define the event handler function
     const handleCopy = (event: Event) => {
       const buttonElement = event.currentTarget as HTMLButtonElement;
-      const code = buttonElement.previousElementSibling?.textContent || '';
+      const preElement = buttonElement.parentNode as HTMLPreElement;
+      const codeElement = preElement.querySelector('code');
+      const code = codeElement ? codeElement.textContent || '' : '';
+  
       navigator.clipboard.writeText(code).then(() => {
         console.log('Text copied to clipboard');
       }).catch(err => {
@@ -53,15 +55,13 @@ export function RenderMarkdown({
       });
     };
   
-    // Attach event listeners to copy buttons
     const copyButtons = document.querySelectorAll('.copy-button');
     copyButtons.forEach(button => button.addEventListener('click', handleCopy));
   
-    // Clean up the event listeners when the component unmounts
     return () => {
       copyButtons.forEach(button => button.removeEventListener('click', handleCopy));
     };
-  }, [markdownText]);  // Dependencies array to determine when the effect reruns
+  }, [markdownText]); 
   
 
   return (
@@ -74,6 +74,3 @@ export function RenderMarkdown({
     </Markdown>
   );
 }
-
-
-

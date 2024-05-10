@@ -38,6 +38,7 @@ export const renderMarkdownMeta: CodeComponentMeta<RenderMarkdownProps> = {
         { selector: ":component li", label: "li" },
         { selector: ":component pre", label: "pre" },
         { selector: ":component code", label: "code" },
+        { selector: ":component .copy-code-btn", label: "Copy code button"},
         { selector: ":component a", label: "a" },
         { selector: ":component: table", label: "table" },
         { selector: ":component thead", label: "thead" },
