@@ -1,6 +1,7 @@
 import { initPlasmicLoader } from "@plasmicapp/loader-nextjs";
-import { RenderMarkdown } from "./components/RenderMarkdown";
-import { renderMarkdownMeta } from "./components/RenderMarkdown/registerComponentMeta";
+// import { RenderMarkdown } from "./components/RenderMarkdown";
+// import { renderMarkdownMeta } from "./components/RenderMarkdown/registerComponentMeta";
+import { RenderMarkdown, renderMarkdownMeta } from "plasmic-render-markdown";
 
 export const PLASMIC = initPlasmicLoader({
   projects: [
